@@ -2,10 +2,10 @@
   "name": "wallabag-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "wallabag-bot.js",
+  "main": "./src/wallabag-bot.js",
   "type": "module",
   "scripts": {
-    "start": "node wallabag-bot.js",
+    "start": "nodemon ./src/wallabag-bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,7 +14,6 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "lint": "^0.8.19",
-    "node-fetch": "^3.3.0",
     "node-telegram-bot-api": "^0.61.0"
   },
   "devDependencies": {
