@@ -1,49 +1,31 @@
 import fetch from 'node-fetch'
 import TelegramBot from 'node-telegram-bot-api'
+import { postEntry } from './api/wallabag-api.js'
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
 
-const token = '<TELEGRAM_API_KEY>'
+const token = process.env.TELEGRAM_API_KEY
+console.log('token: ' + token)
 
 const bot = new TelegramBot(token, { polling: true })
 const encodedParams = new URLSearchParams()
 
 encodedParams.set('grant_type', 'password')
 encodedParams.set(
-  'client_id',
-  '<CLIENT_ID>'
+  'client_id', process.env.WALLABAG_CLIENT_ID
 )
 encodedParams.set(
-  'client_secret',
-  '<CLIENT_SECRET>'
+  'client_secret', process.env.WALLABAG_CLIENT_SECRET
 )
 encodedParams.set('password', 'wallabag')
 encodedParams.set('username', 'wallabag')
 
-const url = '<WALLABAG_SERVER_URL>/oauth/v2/token'
-const urlAddEntry = '<WALLABAG_SERVER_URL>/api/entries.epub'
+const url = `${process.env.WALLABAG_SERVER_URL}/oauth/v2/token`
 
 const options = {
   method: 'POST',
   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   body: encodedParams
-}
-
-function postEntry (token, entryUrl) {
-  const encodedParamsPostEntry = new URLSearchParams()
-
-  encodedParamsPostEntry.set('url', entryUrl)
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Bearer ${token}`
-    },
-    body: encodedParamsPostEntry
-  }
-
-  fetch(urlAddEntry, options)
-    .then(res => res.json())
-    .then(json => console.log(json))
-    .catch(err => console.error('error:' + err))
 }
 
 bot.onText(/^(http|https):\/\//, (msg, match) => {
