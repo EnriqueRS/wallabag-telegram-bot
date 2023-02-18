@@ -5,7 +5,8 @@
   "main": "./src/wallabag-bot.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon ./src/wallabag-bot.js",
+    "start": "node ./src/wallabag-bot.js",
+    "start-nodemon": "nodemon ./src/wallabag-bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
