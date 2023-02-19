@@ -1,5 +1,6 @@
 
 import env from '../env/env.js'
+import fetch from 'node-fetch'
 
 const baseUrl = env.WALLABAG_SERVER_URL
 const urlAddEntry = baseUrl + '/api/entries.epub'
@@ -30,7 +31,6 @@ export function getToken () {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: getEncodedParams()
   }
-
   return fetch(authUrl, options)
     .then((res) => res.json())
     .then((json) => {

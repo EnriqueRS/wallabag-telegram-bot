@@ -4,11 +4,12 @@ import env from './env/env.js'
 
 const telegramToken = env.TELEGRAM_API_KEY
 const chatId = env.TELEGRAM_CHAT_ID
+console.log('telegramToken: ' + telegramToken)
+console.log('chatId: ' + chatId)
 const bot = new TelegramBot(telegramToken, { polling: true })
 
 bot.onText(/^(http|https):\/\//, (msg, match) => {
-  if (msg.chat.id !== chatId) return
-
+  if (msg.chat.id !== +chatId) return
   getToken().then((token) => {
     console.log('token: ' + token)
     postEntry(token, msg.text)
