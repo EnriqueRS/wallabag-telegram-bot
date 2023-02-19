@@ -3,6 +3,7 @@ version: '3.4'
 services:
   wallabagbot:
     image: wallabagbot
+    container_name: wallabagbot
     build:
       context: .
       dockerfile: ./Dockerfile
